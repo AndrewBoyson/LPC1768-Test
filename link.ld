@@ -37,6 +37,11 @@ SECTIONS
 		*(.v4_bx)
 */
 	} >flash
+	
+	.persist (NOLOAD) :
+	{
+	} >sram
+	. = ALIGN(4);
 
 	.data :
 	{
@@ -46,6 +51,7 @@ SECTIONS
 		_edata = .;
 	} >sram AT >flash
 	_sidata = LOADADDR(.data);
+	. = ALIGN(4);
 
 	.bss :
 	{

@@ -49,7 +49,9 @@ $(PROJECT).bin: $(PROJECT).elf
 	$(OBJCOPY) -O binary $(PROJECT).elf $(PROJECT).bin
 
 $(PROJECT).elf: $(OFILES)
-	$(GCC) $(LDFLAGS) $(OFILES) -o $(PROJECT).elf
+	@echo $(OFILES) > ofiles
+#	$(GCC) $(LDFLAGS) $(OFILES) -o $(PROJECT).elf
+	$(GCC) $(LDFLAGS) -Wl,@ofiles -o $(PROJECT).elf
 
 %.o : %.c
 	$(GCC) $(GCFLAGS) -c -o $@ $<

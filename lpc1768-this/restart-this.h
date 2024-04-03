@@ -1,8 +1,0 @@
-#include "lpc1768/reset/restart.h"
-
-extern const char* RestartThisGetZoneString(void);
-#define RESTART_ZONE_NTP_CLIENT RESTART_ZONE_DERIVED + 0
-#define RESTART_ZONE_VALUES     RESTART_ZONE_DERIVED + 1
-#define RESTART_ZONE_ONE_WIRE   RESTART_ZONE_DERIVED + 2
-#define RESTART_ZONE_DEVICE     RESTART_ZONE_DERIVED + 3
-#define RESTART_ZONE_HEATING    RESTART_ZONE_DERIVED + 4

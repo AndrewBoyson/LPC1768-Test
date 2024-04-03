@@ -12,15 +12,12 @@
 #include "settings/settings.h"
 #include "web/web.h"
 #include "heating/values.h"
-#include "lpc1768/reset/restart.h"
-#include "lpc1768-this/restart-this.h"
 #include "crypto/crypto.h"
 #include "wiz/wiz/wiz.h"
 #include "lpc1768/debug.h"
 
 int main()
 {
-    RestartZone = RESTART_ZONE_INIT;
 				Startup();
             PeriphsInit();
                 LedInit();
@@ -36,19 +33,20 @@ int main()
             HeatingInit();
     if (     ValuesInit()) goto end;
                 WizInit();
+				DebugWriteText("Application started\r");
 				
     while (1)
     {
-        RestartZone = RESTART_ZONE_LOG;              LogMain();
-        RestartZone = RESTART_ZONE_CLOCK;            ClkMain();
-        RestartZone = RESTART_ZONE_NET;              NetMain();
-        RestartZone = RESTART_ZONE_VALUES;        ValuesMain();
-        RestartZone = RESTART_ZONE_ONE_WIRE; if (OneWireMain()) break;
-        RestartZone = RESTART_ZONE_DEVICE;   if ( DeviceMain()) break;
-        RestartZone = RESTART_ZONE_HEATING;      HeatingMain();
-        RestartZone = RESTART_ZONE_LPC1768;      Lpc1768Main();
-        RestartZone = RESTART_ZONE_CRYPTO;        CryptoMain();
-                                                     WizMain();
+                LogMain();
+                ClkMain();
+                NetMain();
+             ValuesMain();
+        if (OneWireMain()) break;
+        if ( DeviceMain()) break;
+            HeatingMain();
+            Lpc1768Main();
+             CryptoMain();
+                WizMain();
     }
 
 end:
