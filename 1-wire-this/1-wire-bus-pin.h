@@ -1,0 +1,5 @@
+
+#define BUS_DIR FIO0DIR(4) //pin 0.4 DIP 30
+#define BUS_PIN FIO0PIN(4)
+#define BUS_SET FIO0SET(4)
+#define BUS_CLR FIO0CLR(4)
