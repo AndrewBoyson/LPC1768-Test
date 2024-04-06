@@ -4,4 +4,5 @@
 *.elf
 *.bin
 *.dis
+*.tar
 ofiles

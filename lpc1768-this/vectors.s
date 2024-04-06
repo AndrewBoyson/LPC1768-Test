@@ -21,7 +21,7 @@
 .long 0
 .long DefaultHandler    //PendSV_Handler
 .long DefaultHandler    //SysTick_Handler
-.long DefaultHandler    //WDT_IRQHandler
+.long WatchdogHandler   //WDT_IRQHandler
 .long DefaultHandler    //TIMER0_IRQHandler
 .long OneWireBusHandler //TIMER1_IRQHandler
 .long DefaultHandler    //TIMER2_IRQHandler
