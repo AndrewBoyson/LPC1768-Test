@@ -141,9 +141,6 @@ int RadiatorInit()
     DS18B20RomNames[DS18B20RomCount] = "Hall";
     DS18B20RomCount++;
 
-    int  address;
-    int8_t  def1;
-    int16_t def2;
     GetRadiatorWinter      (&htgWinter           );
     GetHallRom             ( hallRom             );
     GetOverrideCancelHour  (&overrideCancelHour  );

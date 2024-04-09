@@ -18,7 +18,7 @@ void WebWizQuery(char* pQuery)
         
         HttpQueryUnencode(pValue);
 
-        int value = HttpQueryValueAsInt(pValue);
+        //int value = HttpQueryValueAsInt(pValue);
         
         if (HttpSameStr(pName, "wiztrace"    )) ChgTraceWiz();
         

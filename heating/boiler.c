@@ -118,10 +118,6 @@ int BoilerInit()
     DS18B20RomNames[DS18B20RomCount] = "BlrRtn";
     DS18B20RomCount++;
     
-    int address;
-    uint8_t def1;
-    int16_t def2;
-    int32_t def4;
     GetTankRom               (   tankRom            );
     GetOutputRom             ( outputRom            );
     GetReturnRom             ( returnRom            );

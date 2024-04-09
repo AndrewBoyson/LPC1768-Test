@@ -42,7 +42,6 @@ static void    setCount     (int     value) { count         =          value ; S
 
 static int readValuesFromFram()
 {
-    int address = 0;
     GetValuesServerName  (         serverName);
     GetValuesFileName    (           fileName);
     GetValuesWriteSize   ((int*)   &writeSize);

@@ -12,9 +12,9 @@
 #include "settings/settings.h"
 #include "web/web.h"
 #include "heating/values.h"
-#include "crypto/crypto.h"
 #include "wiz/wiz/wiz.h"
 #include "lpc1768/debug.h"
+#include "net-this/net-this-leds.h"
 
 int main()
 {
@@ -25,15 +25,13 @@ int main()
                 ClkInit();
                 LogInit(ClkNowTmUtc, 0);
     if (   SettingsInit()) goto end; //Uses log. Fram is initialised here
-             CryptoInit();           //Uses log
-                NetInit();
+                NetInit("Test", NetThisLinkLed, NetThisSpeedLed, false); //No NTP server
                 WebInit();
             OneWireInit();
              DeviceInit();
             HeatingInit();
     if (     ValuesInit()) goto end;
                 WizInit();
-				DebugWriteText("Application started\r");
 				
     while (1)
     {
@@ -45,7 +43,6 @@ int main()
         if ( DeviceMain()) break;
             HeatingMain();
             Lpc1768Main();
-             CryptoMain();
                 WizMain();
     }
 

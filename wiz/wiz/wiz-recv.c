@@ -103,7 +103,7 @@ static void decodePacket(int length, char* pData)
     bool finished = length <= 0;
     char  name[20];
     char  value[20];
-    char* pName = name;
+    //char* pName = name;
     char* pValue = value;
     char* p = name;
     *pValue = 0;

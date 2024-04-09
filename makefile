@@ -8,7 +8,7 @@ OFILES += $(patsubst %.s,%.o,$(SFILES))
 
 PROJECT=test
 
-LSCRIPT=link.ld
+LSCRIPT=../shared/lpc1768/link.ld
 
 OPTIMIZATION=2
 
@@ -19,8 +19,6 @@ GCFLAGS += -mcpu=cortex-m3
 GCFLAGS += -mthumb
 GCFLAGS += -Wall
 GCFLAGS += -Wno-misleading-indentation
-GCFLAGS += -Wno-unused-function
-GCFLAGS += -Wno-unused-variable
 GCFLAGS += -Werror
 GCFLAGS += -I.
 GCFLAGS += -I../shared 
@@ -50,7 +48,6 @@ $(PROJECT).bin: $(PROJECT).elf
 
 $(PROJECT).elf: $(OFILES)
 	@echo $(OFILES) > ofiles
-#	$(GCC) $(LDFLAGS) $(OFILES) -o $(PROJECT).elf
 	$(GCC) $(LDFLAGS) -Wl,@ofiles -o $(PROJECT).elf
 
 %.o : %.c

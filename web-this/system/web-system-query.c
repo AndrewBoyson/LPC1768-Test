@@ -2,14 +2,7 @@
 #include <stdlib.h>
 
 #include "web/http/http.h"
-//#include "lpc1768/reset/watchdog.h"
-//#include "1-wire/1-wire/1-wire-device.h"
-//#include "heating/boiler.h"
-//#include "heating/radiator.h"
 #include "heating/values.h"
-//#include "ip4.h"
-//#include "settings.h"
-//#include "clktime.h"
 
 void WebSystemQuery(char* pQuery)
 {
