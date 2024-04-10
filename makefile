@@ -41,6 +41,10 @@ MAP     = arm-none-eabi-objdump -h
 REMOVE  = rm -f
 COPY    = cp -f
 
+hack := $(shell touch ../shared/build.c) #This always makes a new version of build 
+
+.PHONY: all stats clean dis map copy wd sfiles cfiles
+
 all: $(PROJECT).bin
 
 $(PROJECT).bin: $(PROJECT).elf
@@ -49,7 +53,7 @@ $(PROJECT).bin: $(PROJECT).elf
 $(PROJECT).elf: $(OFILES)
 	@echo $(OFILES) > ofiles
 	$(GCC) $(LDFLAGS) -Wl,@ofiles -o $(PROJECT).elf
-
+	
 %.o : %.c
 	$(GCC) $(GCFLAGS) -c -o $@ $<
 

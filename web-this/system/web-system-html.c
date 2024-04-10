@@ -5,6 +5,7 @@
 #include "web-this/web-nav-this.h"
 #include "web/web-add.h"
 #include "log/log.h"
+#include "build.h"
 
 void WebSystemHtml()
 {
@@ -26,6 +27,9 @@ void WebSystemHtml()
     
     WebAddH2("Compiler");
     WebAddLabelledText("Version", __VERSION__);
+	
+    WebAddH2("Build");
+    WebAddLabelledText("Date", BuildGetDate());
     
     WebAddEnd();
 }
