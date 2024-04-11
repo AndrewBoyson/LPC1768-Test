@@ -10,6 +10,8 @@ PROJECT=test
 
 LSCRIPT=../shared/lpc1768/link.ld
 
+BUILDDATE := $(shell date '+%Y%m%d')
+
 OPTIMIZATION=2
 
 ASFLAGS += -mcpu=cortex-m3
@@ -28,7 +30,7 @@ LDFLAGS += -mcpu=cortex-m3
 LDFLAGS += -mthumb
 LDFLAGS += -O$(OPTIMIZATION)
 LDFLAGS += -nostartfiles
-LDFLAGS += -Wl,-Map=$(PROJECT).map
+LDFLAGS += -Wl,-Map=$(PROJECT).map,--defsym,BuildDate=$(BUILDDATE)
 LDFLAGS += -T$(LSCRIPT)
 
 GCC     = arm-none-eabi-gcc
@@ -41,9 +43,7 @@ MAP     = arm-none-eabi-objdump -h
 REMOVE  = rm -f
 COPY    = cp -f
 
-hack := $(shell touch ../shared/build.c) #This always makes a new version of build 
-
-.PHONY: all stats clean dis map copy wd sfiles cfiles
+.PHONY: all stats clean dis map copy wd sfiles cfiles date
 
 all: $(PROJECT).bin
 
@@ -72,6 +72,7 @@ clean:
 	$(REMOVE) $(PROJECT).dis
 	$(REMOVE) *.lst
 
+
 dis:
 	$(DIS) $(PROJECT).elf > $(PROJECT).dis
 	
@@ -89,3 +90,7 @@ sfiles:
 	
 cfiles:
 	@echo $(CFILES)
+
+date:
+	@echo $(BUILDDATE)
+	
