@@ -5,6 +5,7 @@ SFILES += $(wildcard ../shared/*.s ../shared/*/*.s ../shared/*/*/*.s ../shared/*
 SFILES += $(wildcard *.s */*.s */*/*.s)
 OFILES += $(patsubst %.c,%.o,$(CFILES))
 OFILES += $(patsubst %.s,%.o,$(SFILES))
+DFILES := $(OFILES:%.o=%.d)
 
 PROJECT=test
 
@@ -55,22 +56,26 @@ $(PROJECT).elf: $(OFILES)
 	$(GCC) $(LDFLAGS) -Wl,@ofiles -o $(PROJECT).elf
 	
 %.o : %.c
-	$(GCC) $(GCFLAGS) -c -o $@ $<
+	$(GCC) -MMD -MP $(GCFLAGS) -c -o $@ $<
 
 %.o : %.s
 	$(AS) $(ASFLAGS) -o $@ $<
+
+-include $(DFILES) #the '-' prevents a non existant file giving an error
 
 stats: $(PROJECT).elf
 	$(SIZE) $(PROJECT).elf
 
 clean:
 	$(REMOVE) $(OFILES)
+	$(REMOVE) $(DFILES)
 	$(REMOVE) $(PROJECT).hex
 	$(REMOVE) $(PROJECT).elf
 	$(REMOVE) $(PROJECT).map
 	$(REMOVE) $(PROJECT).bin
 	$(REMOVE) $(PROJECT).dis
 	$(REMOVE) *.lst
+	$(REMOVE) ofiles
 
 
 dis:
