@@ -1,1 +1,1 @@
-#define WEB_SITE_NAME "Test"
+//#define WEB_SITE_NAME "Test"

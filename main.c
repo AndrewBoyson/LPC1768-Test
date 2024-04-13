@@ -15,6 +15,8 @@
 #include "wiz/wiz/wiz.h"
 #include "lpc1768/debug.h"
 #include "net-this/net-this-leds.h"
+#include "web-this/web-server-this.h"
+#include "web-this/web-nav-this.h"
 
 int main()
 {
@@ -26,7 +28,14 @@ int main()
                 LogInit(ClkNowTmUtc, 0);
     if (   SettingsInit()) goto end; //Uses log. Fram is initialised here
                 NetInit("Test", NetThisLinkLed, NetThisSpeedLed, false); //No NTP server
-                WebInit();
+				
+				WebHookDecideWhatToDo = WebServerThisDecideWhatToDo;
+				WebHookHandleQuery    = WebServerThisHandleQuery;
+				WebHookPost           = WebServerThisPost;
+				WebHookReply          = WebServerThisReply;
+				WebHookAddNav         = WebNavThis;
+                WebInit("Test");
+				
             OneWireInit();
              DeviceInit();
             HeatingInit();
