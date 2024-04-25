@@ -50,7 +50,7 @@
 .long DefaultHandler    //DMA_IRQHandler
 .long DefaultHandler    //I2S_IRQHandler
 .long DefaultHandler    //ENET_IRQHandler
-.long RitHandler        //RIT_IRQHandler
+.long MsRitHandler      //RIT_IRQHandler
 .long DefaultHandler    //MCPWM_IRQHandler
 .long DefaultHandler    //QEI_IRQHandler
 .long DefaultHandler    //PLL1_IRQHandler

@@ -33,6 +33,7 @@ LDFLAGS += -O$(OPTIMIZATION)
 LDFLAGS += -nostartfiles
 LDFLAGS += -Wl,-Map=$(PROJECT).map,--defsym,BuildDate=$(BUILDDATE)
 LDFLAGS += -T$(LSCRIPT)
+#LDFLAGS += --specs=nano.specs
 
 GCC     = arm-none-eabi-gcc
 AS      = arm-none-eabi-as

@@ -5,7 +5,7 @@
 #include "radiator.h"
 #include "program.h"
 #include "lpc1768/mstimer/mstimer.h"
-#include "lpc1768/rit.h"
+#include "lpc1768/msrit.h"
 
 #define HALL_PB_PIN FIO0PIN(05) // P0.05 == p29;
 
@@ -15,11 +15,11 @@
 
 static int ms  = 0;
 
-static void (*ritHook)();
+static void (*msRitHook)();
     
-static void ritHandler()
+static void msRitHandler()
 {
-    if (ritHook) ritHook(); //Call the RIT function chain before this
+    if (msRitHook) msRitHook(); //Call the RIT function chain before this
     
     if (HALL_PB_PIN) { if (ms < DEBOUNCE_MS) ms++; }
     else             { if (ms > 0          ) ms--; }
@@ -37,8 +37,8 @@ bool HallPbOverrideMode = true;
 
 void HallPbInit()
 {
-    ritHook = RitHook;
-    RitHook = ritHandler;
+    msRitHook = MsRitHook;
+    MsRitHook = msRitHandler;
 }
 void HallPbMain()
 {
