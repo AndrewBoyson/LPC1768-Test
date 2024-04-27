@@ -18,8 +18,8 @@ int main()
 {
 				CrtInit();
             Lpc1768Init();
-                ClkInit();
                 LogInit(ClkNowTmUtc, 0);
+                ClkInit();
     if (   SettingsInit()) goto end; //Uses log. Fram is initialised here
                 NetInit("Test");
                 WebInit("Test");
