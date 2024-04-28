@@ -7,7 +7,7 @@
 #include "wiz/wiz/wiz-sun.h"
 #include "wiz/wiz/wiz-sched.h"
 #include "wiz/wiz/wiz-list.h"
-#include "clock/clk/clk.h"
+#include "clk/clk.h"
 
 void WebWizAjax()
 {

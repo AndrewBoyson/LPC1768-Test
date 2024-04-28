@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "clock/clk/clkgov.h"
+#include "clk/clkgov.h"
 #include "fram/fram.h"
 #include "log/log.h"
 #include "net/net.h"

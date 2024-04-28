@@ -8,8 +8,8 @@
 #include "settings/settings.h"
 #include "boiler.h"
 #include "radiator.h"
-#include "clock/clk/clktime.h"
-#include "clock/clk/clk.h"
+#include "clk/clktime.h"
+#include "clk/clk.h"
 #include "lpc1768/led.h"
 
 #define RADIATOR_PUMP_DIR FIO2DIR(03) // P2.03 == p23;

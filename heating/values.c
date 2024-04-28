@@ -4,9 +4,9 @@
 
 #include "net/udp/tftp/tftp.h"
 #include "net/udp/dns/dnslabel.h"
-#include "clock/clk/clk.h"
-#include "clock/clk/clktime.h"
-#include "clock/clk/clktm.h"
+#include "clk/clk.h"
+#include "clk/clktime.h"
+#include "clk/clktm.h"
 #include "lpc1768/mstimer/mstimer.h"
 #include "1-wire/1-wire/ds18b20.h"
 #include "radiator.h"

@@ -6,7 +6,7 @@
 #include "wiz/wiz/wiz-sched.h"
 #include "settings/settings.h"
 #include "web/http/http.h"
-#include "clock/clk/clk.h"
+#include "clk/clk.h"
 #include "log/log.h"
 #include "net/eth/mac.h"
 #include "lpc1768/tm/tm.h"

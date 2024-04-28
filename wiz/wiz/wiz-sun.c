@@ -1,7 +1,7 @@
 #include <time.h>
 
 #include "lpc1768/tm/tm.h"
-#include "clock/clk/clk.h"
+#include "clk/clk.h"
 #include "log/log.h"
 
 //                                J          F        M       A+1       M+1       J+1       J+1       A+1       S+1       O+1       N         D

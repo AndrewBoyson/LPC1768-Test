@@ -3,8 +3,8 @@
 #include <stdbool.h>
 
 #include "lpc1768/rtc/rtc.h"
-#include "clock/clk/clktime.h"
-#include "clock/clk/clk.h"
+#include "clk/clktime.h"
+#include "clk/clk.h"
 #include "log/log.h"
 #include "settings/settings.h"
 #include "program.h"

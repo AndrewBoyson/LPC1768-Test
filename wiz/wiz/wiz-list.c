@@ -4,8 +4,8 @@
 
 #include "web/http/http.h"
 #include "net/eth/mac.h"
-#include "clock/clk/clk.h"
-#include "clock/clk/clktime.h"
+#include "clk/clk.h"
+#include "clk/clktime.h"
 #include "lpc1768/mstimer/mstimer.h"
 #include "log/log.h"
 #include "wiz/wiz/wiz.h"

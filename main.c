@@ -1,7 +1,7 @@
 #include "lpc1768/crt.h"
 #include "lpc1768/lpc1768.h"
 #include "lpc1768/led.h"
-#include "clock/clk/clk.h"
+#include "clk/clk.h"
 #include "log/log.h"
 #include "fram/fram.h"
 #include "net/net.h"
