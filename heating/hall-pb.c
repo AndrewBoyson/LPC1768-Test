@@ -7,7 +7,7 @@
 #include "lpc1768/mstimer/mstimer.h"
 #include "lpc1768/msrit.h"
 
-#define HALL_PB_PIN FIO0PIN(05) // P0.05 == p29;
+#define HALL_PB_PIN FIO0PIN_ALIAS(05) // P0.05 == p29;
 
 #define        DEBOUNCE_MS    20
 #define      LONG_PRESS_MS  2000

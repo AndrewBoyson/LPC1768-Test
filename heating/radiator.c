@@ -12,10 +12,10 @@
 #include "clk/clk.h"
 #include "lpc1768/led.h"
 
-#define RADIATOR_PUMP_DIR FIO2DIR(03) // P2.03 == p23;
-#define RADIATOR_PUMP_PIN FIO2PIN(03)
-#define RADIATOR_PUMP_SET FIO2SET(03)
-#define RADIATOR_PUMP_CLR FIO2CLR(03)
+#define RADIATOR_PUMP_DIR FIO2DIR_ALIAS(3) // P2.03 == p23;
+#define RADIATOR_PUMP_PIN FIO2PIN_ALIAS(3)
+#define RADIATOR_PUMP_SET FIO2SET_BIT(3)
+#define RADIATOR_PUMP_CLR FIO2CLR_BIT(3)
 
 static bool      htgOverride = false;
 static char      htgWinter;

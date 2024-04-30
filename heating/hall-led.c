@@ -7,10 +7,10 @@
 #include "lpc1768/mstimer/mstimer.h"
 #include "hall-pb.h"
 
-#define HALL_LED_DIR FIO0DIR(10) // P0.10 == p28;
-#define HALL_LED_PIN FIO0PIN(10)
-#define HALL_LED_SET FIO0SET(10)
-#define HALL_LED_CLR FIO0CLR(10)
+#define HALL_LED_DIR FIO0DIR_ALIAS(10) // P0.10 == p28;
+#define HALL_LED_PIN FIO0PIN_ALIAS(10)
+#define HALL_LED_SET FIO0SET_BIT(10)
+#define HALL_LED_CLR FIO0CLR_BIT(10)
 
 #define    POSITIVE_FLASH_MS   100
 #define    NEGATIVE_FLASH_MS   500

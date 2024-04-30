@@ -3,9 +3,10 @@
 #include "lpc1768/led.h"
 #include "clk/clk.h"
 #include "log/log.h"
-#include "fram/fram.h"
 #include "net/net.h"
+#include "net/link/jack.h"
 #include "1-wire/1-wire/1-wire.h"
+#include "1-wire/1-wire/1-wire-bus.h"
 #include "1-wire/1-wire/1-wire-device.h"
 #include "heating/heating.h"
 #include "settings/settings.h"
@@ -21,9 +22,23 @@ int main()
                 LogInit(ClkNowTmUtc, 0);
                 ClkInit();
     if (   SettingsInit()) goto end; //Uses log. Fram is initialised here
+
+				JackLinkLedDirPtr  = FIO1DIR_ALIAS_PTR(31); //P1.31 ==> p20 output
+				JackLinkLedSetPtr  = FIO1SET_ALIAS_PTR(31);
+				JackLinkLedClrPtr  = FIO1CLR_ALIAS_PTR(31);
+				JackSpeedLedDirPtr = FIO1DIR_ALIAS_PTR(30); //P1.30 ==> p19 output
+				JackSpeedLedSetPtr = FIO1SET_ALIAS_PTR(30);
+				JackSpeedLedClrPtr = FIO1CLR_ALIAS_PTR(30);
                 NetInit("Test");
+				
                 WebInit("Test");
+				
+			OneWireBusDirPtr = FIO0DIR_ALIAS_PTR(4); //pin 0.4 DIP 30
+			OneWireBusPinPtr = FIO0PIN_ALIAS_PTR(4);
+			OneWireBusSetPtr = FIO0SET_ALIAS_PTR(4);
+			OneWireBusClrPtr = FIO0CLR_ALIAS_PTR(4);
             OneWireInit();
+			
              DeviceInit();
             HeatingInit();
     if (     ValuesInit()) goto end;
