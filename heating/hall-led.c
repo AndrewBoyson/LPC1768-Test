@@ -1,7 +1,7 @@
 #include <stdbool.h>
 
 
-#include "lpc1768/gpio.h"
+#include "lpc1768/register.h"
 #include "radiator.h"
 #include "program.h"
 #include "lpc1768/mstimer/mstimer.h"

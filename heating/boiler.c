@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "lpc1768/gpio.h"
+#include "lpc1768/register.h"
 #include "lpc1768/mstimer/mstimer.h"
 #include "1-wire/1-wire/ds18b20.h"
 #include "settings/settings.h"
