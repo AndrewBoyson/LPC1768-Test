@@ -17,4 +17,4 @@ extern void    ValuesSetWriteSize    (int   value);
 extern void    ValuesSetReadInterval (int   value);
 
 extern void    ValuesMain(void);
-extern int     ValuesInit(void);
+extern void    ValuesInit(void);

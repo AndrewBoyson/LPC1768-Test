@@ -40,7 +40,7 @@ void ValuesSetReadInterval  (int     value) { readInterval  =          value ; S
 static void    setStartTime (int64_t value) { startTime     =          value ; SetValuesStartTime   (&value); }
 static void    setCount     (int     value) { count         =          value ; SetValuesCount       (&value); }
 
-static int readValuesFromFram()
+static void readValuesFromFram()
 {
     GetValuesServerName  (         serverName);
     GetValuesFileName    (           fileName);
@@ -48,7 +48,6 @@ static int readValuesFromFram()
     GetValuesReadInterval((int*)&readInterval);
     GetValuesStartTime   (         &startTime);
     GetValuesCount       ((int*)       &count);
-    return 0;
 }
 
 
@@ -154,11 +153,10 @@ void ValuesMain()
     if (writeSize && count >= writeSize) writeValues(); //Backup the values once the backup size is reached
 }
 
-int ValuesInit()
+void ValuesInit()
 {
-    if (readValuesFromFram()) return -1;
+    readValuesFromFram();
     readStartMs = MsTimerCount;
     TftpGetNextByteFunction = nextByteOfWriteStream;
     if (count > 0) writeValues();     //Backup the values if there are any
-    return 0;
 }

@@ -1,0 +1,68 @@
+Ciper and MAC keys lengths
+==========================
+
+                        Key      IV   Block
+Cipher        Type    Material  Size  Size
+------------  ------  --------  ----  -----
+NULL          Stream      0       0    N/A
+RC4_128       Stream     16       0    N/A
+3DES_EDE_CBC  Block      24       8      8
+AES_128_CBC   Block      16      16     16
+AES_256_CBC   Block      32      16     16
+
+
+MAC       Algorithm    mac_length  mac_key_length
+--------  -----------  ----------  --------------
+NULL      N/A              0             0
+MD5       HMAC-MD5        16            16
+SHA       HMAC-SHA1       20            20
+SHA256    HMAC-SHA256     32            32
+
+
+Names
+=====
+SHA
+secure hash algorithm
+   - it is deterministic, meaning that the same message always results in the same hash
+   - it is quick to compute the hash value for any given message
+   - it is infeasible to generate a message that yields a given hash value
+   - it is infeasible to find two different messages with the same hash value
+   - a small change to a message should change the hash value so extensively that
+     the new hash value appears uncorrelated with the old hash value (avalanche effect)
+   
+HMAC
+keyed-hash message authentication code or hash-based message authentication code
+   - it is a message authentication code (MAC) involving a cryptographic hash function and a secret cryptographic key.
+   - it may be used to simultaneously verify both the data integrity and the authentication of a message
+   - used to sign a message with a symmetrical key
+
+
+Links
+=====
+https://tls.ulfheim.net/
+
+Full  RSA handshake
+===================
+ClientHello       -=> use session id to jump to short handshake
+                  <=- ServerHello
+                  <=- Certificate
+                  <=- ServerHelloDone
+                  
+ClientKeyExchange -=> start asynchronous sha256 decryption
+ChangeCipherSpec  --> switch to encrypedIn
+Finished          -=> store the encrypted verify message
+
+sha256 decrypted  --> prepare the keys and decrypt the verify message
+                  <-- ChangeCipherSpec
+                  <=- Finished
+
+
+Short RSA handshake
+===================
+ClientHello       -=>
+                  <=- ServerHello
+                  <-- ChangeCipherSpec
+                  <=- Finished
+ChangeCipherSpec  --> switch to encrypedIn
+Finished          -=>
+                

@@ -3,9 +3,9 @@ PROJECT := test
 UNUSED  :=
 
 CFILES := $(wildcard ../shared/*.c ../shared/*/*.c ../shared/*/*/*.c ../shared/*/*/*/*.c ../shared/*/*/*/*/*.c ../shared/*/*/*/*/*/*.c)
-CFILES += $(wildcard *.c */*.c */*/*.c)
+CFILES += $(wildcard *.c */*.c */*/*.c */*/*/*.c)
 SFILES := $(wildcard ../shared/*.s ../shared/*/*.s ../shared/*/*/*.s ../shared/*/*/*/*.s ../shared/*/*/*/*/*.s ../shared/*/*/*/*/*/*.s)
-SFILES += $(wildcard *.s */*.s */*/*.s)
+SFILES += $(wildcard *.s */*.s */*/*.s */*/*/*.s)
 OFILES := $(patsubst %.c,%.o,$(CFILES))
 OFILES += $(patsubst %.s,%.o,$(SFILES))
 OFILES := $(filter-out $(UNUSED), $(OFILES))

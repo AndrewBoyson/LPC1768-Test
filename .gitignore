@@ -6,4 +6,6 @@
 *.bin
 *.dis
 *.tar
+pri-key.inc
+ser-cer.inc
 ofiles
