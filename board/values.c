@@ -9,9 +9,7 @@
 #include "clk/clktm.h"
 #include "lpc1768/mstimer/mstimer.h"
 #include "1-wire/1-wire/ds18b20.h"
-#include "radiator.h"
-#include "boiler.h"
-#include "hot-water.h"
+#include "board.h"
 #include "log/log.h"
 #include "net/net.h"
 #include "settings/settings.h"
@@ -73,31 +71,9 @@ static void readValues()
 {    
     uint64_t record = 0;
     uint16_t value;
-    value = RadiatorGetHallDS18B20Value();
+    value = BoardGetDS18B20Value();
     value &= 0x0FFF;
-    record |= value; //0000 0000 0000 0AAA
-    record <<= 12;   //0000 0000 00AA A000
-    value = BoilerGetTankDS18B20Value();
-    value &= 0x0FFF;
-    record |= value; //0000 0000 00AA ABBB
-    record <<= 12;   //0000 000A AABB B000
-    value = BoilerGetOutputDS18B20Value();
-    value &= 0x0FFF;
-    record |= value; //0000 000A AABB BCCC
-    record <<= 12;   //0000 AAAB BBCC C000
-    //value = BoilerGetReturnDS18B20Value();
-    value = BoilerGetRtnDelDS18B20Value();
-    value &= 0x0FFF;
-    record |= value; //0000 AAAB BBCC CDDD
-    record <<= 12;   //0AAA BBBC CCDD D000
-    value = HotWaterGetDS18B20Value();
-    value &= 0x0FFF;
-    record |= value; //0AAA BBBC CCDD DEEE
-    record <<= 4;    //AAAB BBCC CDDD EEE0
-    
-    record |= RadiatorPump << 0;
-    record |= BoilerCall   << 1;
-    record |= BoilerPump   << 2;   //AAAB BBCC CDDD EEEF
+    record = value; //0000 0000 0000 
     
     if (count <= 0)
     {

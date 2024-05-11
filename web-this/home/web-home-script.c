@@ -6,13 +6,13 @@
 static const char* script =
 #include "web/common/web-ajax-class.inc"
 #include "1-wire/web/web-1wire-class.inc"
-#include "web-program-script.inc"
+#include "web-home-script.inc"
 ;
-const char* WebProgramScriptDate = __DATE__;
-const char* WebProgramScriptTime = __TIME__;
+const char* WebHomeScriptDate = __DATE__;
+const char* WebHomeScriptTime = __TIME__;
 
-void WebProgramScript()
+void WebHomeScript()
 {
-    HttpOk("application/javascript; charset=UTF-8", "max-age=3600", WebProgramScriptDate, WebProgramScriptTime);
+    HttpOk("application/javascript; charset=UTF-8", "max-age=3600", WebHomeScriptDate, WebHomeScriptTime);
     HttpAddText(script);
 }

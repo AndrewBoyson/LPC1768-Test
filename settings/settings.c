@@ -33,8 +33,6 @@
 #include "web/web.h"
 #include "net/udp/tftp/tftp.h"
 #include "net/udp/dns/dns.h"
-#include "lpc1768/led.h"
-#include "heating/program.h"
 #include "wiz/wiz/wiz.h"
 #include "wiz/wiz/wiz-list.h"
 #include "wiz/wiz/wiz-sched.h"
@@ -222,97 +220,17 @@ void SetNtpClientRetryInterval   ( int   value) { NtpClientQueryRetryInterval   
 void SetNtpClientOffsetMs        ( int   value) { NtpClientReplyOffsetMs           = (int32_t)value ; FramWrite(iOffsetMs,                           4, &NtpClientReplyOffsetMs        ); }
 void SetNtpClientMaxDelayMs      ( int   value) { NtpClientReplyMaxDelayMs         = (int32_t)value ; FramWrite(iMaxDelayMs,                         4, &NtpClientReplyMaxDelayMs      ); }
 
-static int iTankRom;
-static int iOutputRom;
-static int iReturnRom;
-static int iFullSpeedSecs;
-static int iTankSetPoint;
-static int iTankHysteresis;
-static int iRunOnDeltaT;
-static int iRunOnTime2s;
-static int iPumpSpeedCalling;
-static int iRampDownTime;
-static int iBoilerTarget;
-static int iMinSpeed;
-static int iMidSpeedPwm;
-static int iFullSpeedDeltaT;
+static int iBoardRom;
 
-static int iWinter;
-static int iHallRom;
-static int iOverrideCancelHour;
-static int iOverrideCancelMinute;
-static int iHotWaterProtectTemp;
-static int iHotWaterProtectOn;
-static int iNightTemperature;
-static int iFrostTemperature;
-
-static int iProgramDay;
-static int iPrograms;
-static int iProgramNewDayHour;
-
-static int iHotWaterRom;
-
-void SetTankRom               (char*     value) { FramWrite(iTankRom,              8,  value); }
-void GetTankRom               (char*     value) { FramRead (iTankRom,              8,  value); }
-void SetOutputRom             (char*     value) { FramWrite(iOutputRom,            8,  value); }
-void GetOutputRom             (char*     value) { FramRead (iOutputRom,            8,  value); }
-void SetReturnRom             (char*     value) { FramWrite(iReturnRom,            8,  value); }
-void GetReturnRom             (char*     value) { FramRead (iReturnRom,            8,  value); }
-void SetBoilerFullSpeedSecs   (int8_t*  pValue) { FramWrite(iFullSpeedSecs,        1, pValue); }
-void GetBoilerFullSpeedSecs   (int8_t*  pValue) { FramRead (iFullSpeedSecs,        1, pValue); }
-void SetTankSetPoint          (int8_t*  pValue) { FramWrite(iTankSetPoint,         1, pValue); }
-void GetTankSetPoint          (int8_t*  pValue) { FramRead (iTankSetPoint,         1, pValue); }
-void SetTankHysteresis        (int16_t* pValue) { FramWrite(iTankHysteresis,       2, pValue); }
-void GetTankHysteresis        (int16_t* pValue) { FramRead (iTankHysteresis,       2, pValue); }
-void SetBoilerRunOnDeltaT     (int16_t* pValue) { FramWrite(iRunOnDeltaT,          2, pValue); }
-void GetBoilerRunOnDeltaT     (int16_t* pValue) { FramRead (iRunOnDeltaT,          2, pValue); }
-void SetBoilerRunOnTime2s     (uint8_t* pValue) { FramWrite(iRunOnTime2s,          1, pValue); }
-void GetBoilerRunOnTime2s     (uint8_t* pValue) { FramRead (iRunOnTime2s,          1, pValue); }
-void SetBoilerPumpSpeedCalling(int8_t*  pValue) { FramWrite(iPumpSpeedCalling,     1, pValue); }
-void GetBoilerPumpSpeedCalling(int8_t*  pValue) { FramRead (iPumpSpeedCalling,     1, pValue); }
-void SetBoilerRampDownTime    (int8_t*  pValue) { FramWrite(iRampDownTime,         1, pValue); }
-void GetBoilerRampDownTime    (int8_t*  pValue) { FramRead (iRampDownTime,         1, pValue); }
-void SetBoilerTarget          (int8_t*  pValue) { FramWrite(iBoilerTarget,         1, pValue); }
-void GetBoilerTarget          (int8_t*  pValue) { FramRead (iBoilerTarget,         1, pValue); }
-void SetBoilerMinSpeed        (int8_t*  pValue) { FramWrite(iMinSpeed,             1, pValue); }
-void GetBoilerMinSpeed        (int8_t*  pValue) { FramRead (iMinSpeed,             1, pValue); }
-void SetBoilerMidSpeedPwm     (int8_t*  pValue) { FramWrite(iMidSpeedPwm,          1, pValue); }
-void GetBoilerMidSpeedPwm     (int8_t*  pValue) { FramRead (iMidSpeedPwm,          1, pValue); }
-void SetBoilerFullSpeedDeltaT (int16_t* pValue) { FramWrite(iFullSpeedDeltaT,      2, pValue); }
-void GetBoilerFullSpeedDeltaT (int16_t* pValue) { FramRead (iFullSpeedDeltaT,      2, pValue); }
-void SetRadiatorWinter        (char*    pValue) { FramWrite(iWinter,               1, pValue); }
-void GetRadiatorWinter        (char*    pValue) { FramRead (iWinter,               1, pValue); }
-void SetHallRom               (char*     value) { FramWrite(iHallRom,              8,  value); }
-void GetHallRom               (char*     value) { FramRead (iHallRom,              8,  value); }
-void SetOverrideCancelHour    (uint8_t* pValue) { FramWrite(iOverrideCancelHour,   1, pValue); }
-void GetOverrideCancelHour    (uint8_t* pValue) { FramRead (iOverrideCancelHour,   1, pValue); }
-void SetOverrideCancelMinute  (uint8_t* pValue) { FramWrite(iOverrideCancelMinute, 1, pValue); }
-void GetOverrideCancelMinute  (uint8_t* pValue) { FramRead (iOverrideCancelMinute, 1, pValue); }
-void SetHotWaterProtectTemp   (int8_t*  pValue) { FramWrite(iHotWaterProtectTemp,  1, pValue); }
-void GetHotWaterProtectTemp   (int8_t*  pValue) { FramRead (iHotWaterProtectTemp,  1, pValue); }
-void SetHotWaterProtectOn     (char*    pValue) { FramWrite(iHotWaterProtectOn,    1, pValue); }
-void GetHotWaterProtectOn     (char*    pValue) { FramRead (iHotWaterProtectOn,    1, pValue); }
-void SetNightTemperature      (int16_t* pValue) { FramWrite(iNightTemperature,     2, pValue); }
-void GetNightTemperature      (int16_t* pValue) { FramRead (iNightTemperature,     2, pValue); }
-void SetFrostTemperature      (int16_t* pValue) { FramWrite(iFrostTemperature,     2, pValue); }
-void GetFrostTemperature      (int16_t* pValue) { FramRead (iFrostTemperature,     2, pValue); }
-
-void SetProgramDay            (int index, char*    pValue) { FramWrite(iProgramDay + index,   1, pValue); }
-void GetProgramDay            (int index, char*    pValue) { FramRead (iProgramDay + index,   1, pValue); }
-void SetProgram               (int index, int16_t* pValue) { FramWrite(iPrograms + index * 8, 8, pValue); }
-void GetProgram               (int index, int16_t* pValue) { FramRead (iPrograms + index * 8, 8, pValue); }
-void SetProgramNewDayHour     (char*    pValue) { FramWrite(iProgramNewDayHour,    1, pValue); }
-void GetProgramNewDayHour     (char*    pValue) { FramRead (iProgramNewDayHour,    1, pValue); }
-
-void SetHotWaterRom           (char*     value) { FramWrite(iHotWaterRom,          8,  value); }
-void GetHotWaterRom           (char*     value) { FramRead (iHotWaterRom,          8,  value); }
+void SetBoardRom               (char*     value) { FramWrite(iBoardRom,              8,  value); }
+void GetBoardRom               (char*     value) { FramRead (iBoardRom,              8,  value); }
 
 int SettingsInit()
 {
     int address;
     char b;
-    int8_t  def1;
-    int16_t def2;
+    //int8_t  def1;
+    //int16_t def2;
     int32_t def4;
     int64_t def8;
     
@@ -327,63 +245,39 @@ int SettingsInit()
     def4 =   50; address = FramLoad(                      4, &NtpClientReplyMaxDelayMs,      &def4); if (address < 0) return -1; iMaxDelayMs      = address; 
     
     //Boiler
-    address = FramAllocate(8); if (address < 0) return -1; iTankRom              = address;
-    address = FramAllocate(8); if (address < 0) return -1; iOutputRom            = address;
-    address = FramAllocate(8); if (address < 0) return -1; iReturnRom            = address;
-    address = FramAllocate(1); if (address < 0) return -1; iFullSpeedSecs        = address;
-    address = FramAllocate(1); if (address < 0) return -1; iTankSetPoint         = address;
-    address = FramAllocate(2); if (address < 0) return -1; iTankHysteresis       = address;
-    address = FramAllocate(2); if (address < 0) return -1; iRunOnDeltaT          = address;
-    address = FramAllocate(1); if (address < 0) return -1; iRunOnTime2s          = address;
-    address = FramAllocate(1); if (address < 0) return -1; iPumpSpeedCalling     = address;
-    address = FramAllocate(1); if (address < 0) return -1; iRampDownTime         = address;
-    address = FramAllocate(1); if (address < 0) return -1; iBoilerTarget         = address;
-    address = FramAllocate(1); if (address < 0) return -1; iMinSpeed             = address;
+    address = FramAllocate(8); if (address < 0) return -1;
+    address = FramAllocate(8); if (address < 0) return -1;
+    address = FramAllocate(8); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(2); if (address < 0) return -1;
+    address = FramAllocate(2); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
               FramAllocate(1); //Spare byte
-    address = FramAllocate(1); if (address < 0) return -1; iMidSpeedPwm          = address;
+    address = FramAllocate(1); if (address < 0) return -1;
               FramAllocate(1); //Spare byte
-    address = FramAllocate(2); if (address < 0) return -1; iFullSpeedDeltaT      = address;
+    address = FramAllocate(2); if (address < 0) return -1;
     
     //Radiator
-    address = FramAllocate(1); if (address < 0) return -1; iWinter               = address; 
+    address = FramAllocate(1); if (address < 0) return -1;
               FramAllocate(1); //Spare byte
-    address = FramAllocate(8); if (address < 0) return -1; iHallRom              = address;
-    address = FramAllocate(1); if (address < 0) return -1; iOverrideCancelHour   = address;
-    address = FramAllocate(1); if (address < 0) return -1; iOverrideCancelMinute = address;
-    address = FramAllocate(1); if (address < 0) return -1; iHotWaterProtectTemp  = address;
-    address = FramAllocate(1); if (address < 0) return -1; iHotWaterProtectOn    = address;
-    address = FramAllocate(2); if (address < 0) return -1; iNightTemperature     = address; 
-    address = FramAllocate(2); if (address < 0) return -1; iFrostTemperature     = address; 
-    address = FramAllocate(7); if (address < 0) return -1; iProgramDay           = address;
+    address = FramAllocate(8); if (address < 0) return -1; iBoardRom             = address;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
+    address = FramAllocate(2); if (address < 0) return -1;
+    address = FramAllocate(2); if (address < 0) return -1;
+    address = FramAllocate(7); if (address < 0) return -1;
     
-    int programSize = PROGRAM_COUNT * PROGRAM_TRANSITIONS_COUNT * sizeof(int16_t);
-    address = FramAllocate(programSize); if (address < 0) return -1; iPrograms   = address; //3 x 4 x 2
-    address = FramAllocate(1); if (address < 0) return -1; iProgramNewDayHour = address;
+    address = FramAllocate(24); if (address < 0) return -1;
+    address = FramAllocate(1); if (address < 0) return -1;
 
-    address = FramAllocate(8); if (address < 0) return -1; iHotWaterRom          = address;
-                 
-    if (FramEmpty)
-    {
-        def1 =    100; FramWrite(iFullSpeedSecs,        1, &def1);
-        def1 =     65; FramWrite(iTankSetPoint,         1, &def1);
-        def2 =      3; FramWrite(iTankHysteresis,       2, &def2);
-        def2 =   2<<4; FramWrite(iRunOnDeltaT,          2, &def2);
-        def1 = 180>>2; FramWrite(iRunOnTime2s,          1, &def1); //3 minutes = 2 * 90 2 seconds
-        def1 =    100; FramWrite(iPumpSpeedCalling,     1, &def1);
-        def1 =     10; FramWrite(iRampDownTime,         1, &def1);
-        def1 =     60; FramWrite(iBoilerTarget,         1, &def1);
-        def1 =     50; FramWrite(iMinSpeed,             1, &def1);
-        def1 =     50; FramWrite(iMidSpeedPwm,          1, &def1);
-        def2 =  10<<4; FramWrite(iFullSpeedDeltaT,      2, &def2);
-        def1 =      0; FramWrite(iWinter,               1, &def1);
-        def1 =     23; FramWrite(iOverrideCancelHour,   1, &def1);
-        def1 =      0; FramWrite(iOverrideCancelMinute, 1, &def1);
-        def1 =     50; FramWrite(iHotWaterProtectTemp,  1, &def1);
-        def1 =      0; FramWrite(iHotWaterProtectOn,    1, &def1);
-        def2 =     15; FramWrite(iNightTemperature,     2, &def2);
-        def2 =      8; FramWrite(iFrostTemperature,     2, &def2);
-        def1 =      2; FramWrite(iProgramNewDayHour,    1, &def1);
-    }
+    address = FramAllocate(8); if (address < 0) return -1;
     
     def4 =       10; address = FramLoad( 4, &ClkGovSlewDivisor,       &def4);    if (address < 0) return -1; iClkGovSlewDivisor       = address;
     def4 =       20; address = FramLoad( 4, &ClkGovSlewChangeMaxMs,   &def4);    if (address < 0) return -1; iClkGovSlewMaxMs         = address;

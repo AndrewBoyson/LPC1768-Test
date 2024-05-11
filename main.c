@@ -5,12 +5,10 @@
 #include "log/log.h"
 #include "net/net.h"
 #include "1-wire/1-wire/1-wire.h"
-#include "heating/heating.h"
+#include "board/board.h"
 #include "settings/settings.h"
 #include "web/web.h"
-#include "heating/values.h"
 #include "wiz/wiz/wiz.h"
-#include "lpc1768/debug.h"
 #include "crypto/crypto.h"
 #include "crypto/pki/ser-cer.h"
 #include "crypto/pki/pri-key.h"
@@ -25,8 +23,7 @@ int main()
                 NetInit("Test", "p1.31", "p1.30");
                 WebInit("Test");
             OneWireInit("p0.26"); //P0.26 p18
-            HeatingInit();
-			 ValuesInit();
+			  BoardInit();
                 WizInit();
 				
 			SerCerSourcePtr =
@@ -43,9 +40,8 @@ int main()
 			LogMain();
 			ClkMain();
 			NetMain();
-		 ValuesMain();
 		OneWireMain();
-		HeatingMain();
+		  BoardMain();
 		Lpc1768Main();
 			WizMain();
 		 CryptoMain();
