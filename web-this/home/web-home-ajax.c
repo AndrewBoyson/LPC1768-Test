@@ -3,8 +3,6 @@
 
 #include "web/http/http.h"
 #include "board/board.h"
-#include "1-wire/1-wire/ds18b20.h"
-#include "1-wire/1-wire/1-wire-device.h"
 
 void WebHomeAjax()
 {

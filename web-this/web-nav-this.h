@@ -5,5 +5,4 @@ extern void WebNavThis(int page);
 #define RADIATOR_PAGE 102
 #define   BOILER_PAGE 103
 #define   SYSTEM_PAGE 104
-#define ONE_WIRE_PAGE 105
-#define      WIZ_PAGE 106
+#define      WIZ_PAGE 105

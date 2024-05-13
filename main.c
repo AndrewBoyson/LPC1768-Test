@@ -4,7 +4,7 @@
 #include "clk/clk.h"
 #include "log/log.h"
 #include "net/net.h"
-#include "1-wire/1-wire/1-wire.h"
+#include "1-wire/1-wire.h"
 #include "board/board.h"
 #include "settings/settings.h"
 #include "web/web.h"

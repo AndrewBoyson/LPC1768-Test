@@ -20,7 +20,7 @@
 #include "net/ip6/icmp/ndp/ra.h"
 #include "net/ip6/icmp/ndp/rs.h"
 #include "net/resolve/nr.h"
-#include "1-wire/1-wire/1-wire.h"
+#include "1-wire/1-wire.h"
 #include "net/ip4/icmp/echo4.h"
 #include "net/ip6/icmp/echo6.h"
 #include "net/ip6/icmp/dest6.h"

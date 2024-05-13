@@ -14,13 +14,6 @@ extern void        WebSystemScript     (void        );
 extern const char* WebSystemScriptDate               ;
 extern const char* WebSystemScriptTime               ;
 
-extern void        WebOneWireHtml      (void        );
-extern void        WebOneWireQuery     (char* pQuery);
-extern void        WebOneWireAjax      (void        );
-extern void        WebOneWireScript    (void        );
-extern const char* WebOneWireScriptDate              ;
-extern const char* WebOneWireScriptTime              ;
-
 extern void        WebWizHtml          (void        );
 extern void        WebWizQuery         (char* pQuery);
 extern void        WebWizAjax          (void        );

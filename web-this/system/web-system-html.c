@@ -36,6 +36,9 @@ void WebSystemHtml()
     WebAddH2("Compiler");
     WebAddLabelledText("Version", __VERSION__);
 	
+    WebAddH2("C standard");
+    WebAddLabelledInt("YYYYMM", __STDC_VERSION__);
+	
     WebAddH2("Build");
     WebAddLabelledText("Date", BuildGetDate());
     
