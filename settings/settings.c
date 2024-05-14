@@ -20,7 +20,6 @@
 #include "net/ip6/icmp/ndp/ra.h"
 #include "net/ip6/icmp/ndp/rs.h"
 #include "net/resolve/nr.h"
-#include "1-wire/1-wire.h"
 #include "net/ip4/icmp/echo4.h"
 #include "net/ip6/icmp/echo6.h"
 #include "net/ip6/icmp/dest6.h"
@@ -47,8 +46,6 @@ static int iClkGovSyncedHysterisNs ;
 static int iClkGovSyncedHysterisPpb;
 static int iClkGovMaxOffsetSecs    ;
 static int iClkGov;
-
-static int iOneWire;
 
 static int iDnsSendRequestsViaIp4 ;
 static int iNtpSendRequestsViaIp4 ;
@@ -159,9 +156,6 @@ void ChgTraceSync             ()           { ClkGovTrace = !ClkGovTrace     ; Fr
 
 //Log settings
 void ChgLogUart               () {       LogUart         =       !LogUart;         FramWrite(iLogUart,    1,        &LogUart       ); }
-
-//Heating settings
-void ChgTraceOneWire          () {   OneWireTrace        =   !OneWireTrace       ; FramWrite(iOneWire,    1,   &OneWireTrace       ); }
 
 //Net settings
 void ChgDnsSendRequestsViaIp4    () {            DnsSendRequestsViaIp4 =             !DnsSendRequestsViaIp4; FramWrite( iDnsSendRequestsViaIp4,    1,             &DnsSendRequestsViaIp4); }
@@ -289,7 +283,7 @@ int SettingsInit()
     def4 =     1000; address = FramLoad( 4, &ClkGovFreqSyncedHysPpb,  &def4);    if (address < 0) return -1; iClkGovSyncedHysterisPpb = address;
     def4 =        3; address = FramLoad( 4, &ClkGovSlewOffsetMaxSecs, &def4);    if (address < 0) return -1; iClkGovMaxOffsetSecs     = address;
     address = FramLoad( 1, &b, NULL);   ClkGovTrace                     = b; if (address < 0) return -1; iClkGov      = address;
-    address = FramLoad( 1, &b, NULL);  OneWireTrace                     = b; if (address < 0) return -1; iOneWire     = address;
+	FramAllocate(1); //Spare was one wire trace
     address = FramLoad( 1, &b, NULL);             DnsSendRequestsViaIp4 = b; if (address < 0) return -1; iDnsSendRequestsViaIp4  = address;
     address = FramLoad( 1, &b, NULL);  NtpClientQuerySendRequestsViaIp4 = b; if (address < 0) return -1; iNtpSendRequestsViaIp4  = address;
     address = FramLoad( 1, &b, NULL);            TftpSendRequestsViaIp4 = b; if (address < 0) return -1; iTftpSendRequestsViaIp4 = address;
