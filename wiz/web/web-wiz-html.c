@@ -47,7 +47,7 @@ static void addSchedule(int index)
 void WebWizHtml()
 {
     HttpOk("text/html; charset=UTF-8", "no-cache", NULL, NULL);
-    WebAddHeader("Wiz", "settings.css", "wiz.js");
+    WebAddHeader2("Wiz", "settings.css", "ajax-class.js", "wiz.js");
     WebAddNav(WIZ_PAGE);
     WebAddH1("Wiz");
     

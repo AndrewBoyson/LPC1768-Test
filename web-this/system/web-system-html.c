@@ -18,7 +18,7 @@
 void WebSystemHtml()
 {
     HttpOk("text/html; charset=UTF-8", "no-cache", NULL, NULL);
-    WebAddHeader("System", "settings.css", "system.js");
+    WebAddHeader2("System", "settings.css", "ajax-class.js", "system.js");
     WebAddNav(SYSTEM_PAGE);
     WebAddH1("System");
 

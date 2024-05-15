@@ -13,7 +13,7 @@ extern void ChgDnsSendRequestsViaIp4 (void);
 extern void ChgNtpSendRequestsViaIp4 (void);
 extern void ChgTftpSendRequestsViaIp4(void);
 
-extern void ChgTraceSync      (void);
+extern void ChgTraceSync(void);
 
 extern void ChgTraceWiz          (void);
 extern void SetWizListMac        (int i,    char* pMac    );

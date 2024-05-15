@@ -4,8 +4,6 @@
 //Use http://tomeko.net/online_tools/cpp_text_unescape.php to convert from c-multiline to text
 
 static const char* script =
-#include "web/common/web-ajax-class.inc"
-#include "web/base/1-wire/web-1wire-class.inc"
 #include "web-home-script.inc"
 ;
 const char* WebHomeScriptDate = __DATE__;

@@ -4,7 +4,7 @@
 //Use http://tomeko.net/online_tools/cpp_text_unescape.php to convert from c-multiline to text
 
 static const char* script =
-#include "web/common/web-ajax-class.inc"
+//#include "web/common/web-ajax-class.inc"
 #include "web-system-script.inc"
 ;
 const char* WebSystemScriptDate = __DATE__;
